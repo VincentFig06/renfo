@@ -104,7 +104,27 @@ K:{h:[70,14],l:["70,24 70,56","70,56 70,76 70,95 78,95","70,56 90,58 90,76 96,78
 K2:{h:[70,14],l:["70,24 70,56","70,56 50,58 50,76 56,78","70,56 70,76 70,95 78,95","70,30 60,40 54,32","70,30 78,44 82,56"]},
 T:{h:[70,14],l:["70,24 70,56","70,56 70,76 70,95 78,95","70,56 72,78 56,64 52,60","70,30 80,40 86,32","70,30 62,44 58,56"]},
 C:{pr:["120,6 120,95"],h:[94,24],l:["92,34 76,62","76,62 94,76 92,95 100,95","76,62 44,94 52,95","92,38 106,40 118,38","92,40 106,44 118,42"]},
-Qd:{h:[70,14],l:["70,24 70,56","70,56 70,76 70,95 78,95","70,56 70,78 56,64 52,60","70,30 62,46 54,60","70,30 84,40 94,46"]}
+Qd:{h:[70,14],l:["70,24 70,56","70,56 70,76 70,95 78,95","70,56 70,78 56,64 52,60","70,30 62,46 54,60","70,30 84,40 94,46"]},
+CV1:{h:[110,50],l:["100,58 75,66 50,60","100,58 100,95","50,60 50,95 20,95"]},
+CV2:{h:[108,68],l:["100,60 75,46 50,60","100,60 100,95","50,60 50,95 20,95"]},
+BD1:{h:[110,52],l:["100,58 50,58","100,58 100,95","50,58 50,95 20,95"]},
+BD2:{h:[110,52],l:["100,58 50,58","100,58 100,95","100,58 130,46","50,58 50,95 22,95","50,58 14,46"]},
+CR1:{h:[14,86],l:["24,90 62,92","62,92 84,70 96,95 104,95","26,89 42,84"]},
+CR2:{h:[28,70],l:["35,78 62,92","62,92 84,70 96,95 104,95","35,78 48,74"]},
+PL:{h:[114,66],l:["104,74 60,82","60,82 24,93 18,95","104,74 104,95 122,95"]},
+LR1:{h:[14,87],l:["24,90 62,92","62,92 122,86","28,93 50,95"]},
+LR2:{h:[14,87],l:["24,90 62,92","62,92 68,38","28,93 50,95"]},
+GL:{h:[22,62],l:["30,70 76,82","76,82 118,94","30,70 30,95 48,95","30,70 32,40"]},
+MC1:{h:[110,56],l:["100,62 64,70","100,62 100,95","64,70 24,95","64,70 86,82 80,95"]},
+MC2:{h:[110,56],l:["100,62 64,70","100,62 100,95","64,70 24,95","64,70 28,93"]},
+BC1:{h:[30,70],l:["36,78 62,92","62,92 74,66 92,68","62,92 118,80","36,78 46,70"]},
+BC2:{h:[30,70],l:["36,78 62,92","62,92 118,82","62,92 76,64 94,66","36,78 48,72"]},
+DB1:{h:[14,87],l:["24,90 62,92","28,90 28,50","62,92 62,62 90,62"]},
+DB2:{h:[14,87],l:["24,90 62,92","28,90 28,50","28,90 6,74","62,92 62,62 90,62","62,92 118,84"]},
+SM1:{h:[118,86],l:["108,90 60,92","60,92 14,94","108,90 134,92"]},
+SM2:{h:[116,78],l:["106,84 60,92","60,92 14,82","106,84 134,74"]},
+EN:{h:[106,77],l:["54,80 96,86","54,80 84,94 52,95","96,86 134,94"]},
+CO:{h:[106,56],l:["60,92 98,64","60,92 14,94","98,64 100,95"]}
 };
 function g(p,cls){let s=`<g class="${cls}" transform="translate(0,${10+(p.dy||0)})" fill="none" stroke-linecap="round" stroke-linejoin="round">`;
 (p.pr||[]).forEach(l=>s+=`<polyline points="${l}" stroke="var(--muted)" stroke-width="2.5"/>`);
@@ -128,14 +148,30 @@ chaise:{n:"Chaise contre le mur",c:"Dos au mur, cuisses à l'horizontale. On tie
 saut:{n:"Sautillements",c:"Petits rebonds rapides sur l'avant du pied.",p:["S","J"],d:30},
 exc:{n:"Descente excentrique",c:"Monter sur 2 pieds, redescendre sur 1 seul en 4 secondes. Environ 8.",p:["M2","E2"],d:40,legs:true},
 mollet:{n:"Étirement mollet",c:"Mains au mur, jambe arrière tendue, talon au sol.",p:["C"],d:30,legs:true},
-quad:{n:"Étirement quadriceps",c:"Tenir le pied derrière, genoux serrés, bassin en avant.",p:["Qd"],d:30,legs:true}
+quad:{n:"Étirement quadriceps",c:"Tenir le pied derrière, genoux serrés, bassin en avant.",p:["Qd"],d:30,legs:true},
+chatvache:{n:"Chat-vache",c:"À quatre pattes, creuser le dos puis l'arrondir, au rythme de la respiration.",p:["CV1","CV2"],d:40,t:"Abdos et gainage"},
+birddog:{n:"Bird dog alterné",c:"À quatre pattes, tendre un bras et la jambe opposée, alterner lentement.",p:["BD1","BD2"],d:40,t:"Abdos et gainage"},
+crunch:{n:"Crunch",c:"Environ 15. Décoller les épaules en soufflant, le bas du dos reste au sol.",p:["CR1","CR2"],d:40,t:"Abdos et gainage"},
+planche:{n:"Planche sur les avant-bras",c:"Corps aligné de la tête aux talons, ventre rentré, fessiers serrés.",p:["PL"],d:40,t:"Abdos et gainage"},
+releves:{n:"Relevés de jambes",c:"Environ 10. Jambes tendues, redescendre lentement sans toucher le sol.",p:["LR1","LR2"],d:30,t:"Abdos et gainage"},
+lateral:{n:"Gainage latéral",c:"Sur l'avant-bras, bassin haut, corps bien aligné.",p:["GL"],d:30,legs:true,sw:"côté",t:"Abdos et gainage"},
+climber:{n:"Mountain climbers",c:"En planche bras tendus, ramener les genoux vers la poitrine en alternant, vite.",p:["MC2","MC1"],d:30,t:"Abdos et gainage"},
+velo:{n:"Crunch vélo",c:"Coude vers le genou opposé, l'autre jambe tendue. Alterner sans à-coups.",p:["BC1","BC2"],d:40,t:"Abdos et gainage"},
+deadbug:{n:"Dead bug",c:"Sur le dos, tendre un bras et la jambe opposée, le bas du dos collé au sol.",p:["DB1","DB2"],d:40,t:"Abdos et gainage"},
+superman:{n:"Superman",c:"À plat ventre, décoller bras et jambes, tenir 2 secondes, relâcher.",p:["SM1","SM2"],d:30,t:"Abdos et gainage"},
+enfant:{n:"Posture de l'enfant",c:"Assis sur les talons, buste vers l'avant, bras allongés. Respirer.",p:["EN"],d:40,t:"Abdos et gainage"},
+cobra:{n:"Étirement cobra",c:"À plat ventre, pousser sur les mains, bassin au sol, regard devant.",p:["CO"],d:30,t:"Abdos et gainage"}
 };
-Object.values(BUILTIN).forEach(e=>{e.t=TH;e.ro=true;});
+Object.values(BUILTIN).forEach(e=>{e.t=e.t||TH;e.ro=true;});
 const PRESETS=[{id:"preset-jambes",ro:true,name:"Renfo cuisses et mollets",theme:TH,blocks:[
 {name:"Échauffement",k:"warm",rounds:1,rest:0,roundRest:0,items:[{ex:"genoux",d:60},{ex:"talons",d:60},{ex:"doux",d:60}]},
 {name:"Circuit",k:"work",rounds:2,rest:30,roundRest:60,items:[{ex:"squat",d:45},{ex:"fente",d:30},{ex:"pont",d:35},{ex:"bulg",d:35},{ex:"pointes",d:60},{ex:"chaise",d:45},{ex:"saut",d:30}]},
 {name:"Finisher mollets",k:"work",rounds:1,rest:0,roundRest:0,items:[{ex:"exc",d:40}]},
-{name:"Retour au calme",k:"calm",rounds:1,rest:0,roundRest:0,items:[{ex:"mollet",d:30},{ex:"quad",d:30}]}]}];
+{name:"Retour au calme",k:"calm",rounds:1,rest:0,roundRest:0,items:[{ex:"mollet",d:30},{ex:"quad",d:30}]}]},
+{id:"preset-abdos",ro:true,name:"Abdos et gainage du coureur",theme:"Abdos et gainage",blocks:[
+{name:"Échauffement",k:"warm",rounds:1,rest:0,roundRest:0,items:[{ex:"chatvache",d:40},{ex:"genoux",d:40},{ex:"birddog",d:40}]},
+{name:"Circuit",k:"work",rounds:2,rest:20,roundRest:60,items:[{ex:"crunch",d:40},{ex:"planche",d:40},{ex:"releves",d:30},{ex:"lateral",d:30},{ex:"climber",d:30},{ex:"velo",d:40},{ex:"deadbug",d:40},{ex:"superman",d:30}]},
+{name:"Retour au calme",k:"calm",rounds:1,rest:0,roundRest:0,items:[{ex:"enfant",d:40},{ex:"cobra",d:30}]}]}];
 
 const KS="renfo.v1.sessions",KE="renfo.v1.exercises";
 let storageOK=true;
@@ -147,6 +183,7 @@ const allSes=()=>[...PRESETS,...mySes];
 const uid=()=>"u"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const clone=o=>JSON.parse(JSON.stringify(o));
+const pj=e=>e.sw==="côté"?" par côté":" par jambe";
 const KL={warm:"Échauffement",work:"Effort",calm:"Retour au calme"};
 
 function buildSteps(s){const st=[],X=allEx();
@@ -156,7 +193,7 @@ function buildSteps(s){const st=[],X=allEx();
       if(r>0&&b.roundRest>0)st.push({k:"rest",ph,name:"Récupération",cue:"Nouveau tour : mêmes exercices.",d:b.roundRest});
       else if(r===0&&bi>0)st.push({k:"rest",ph,name:"Récupération",cue:"Installez-vous pour la suite.",d:15});
       b.items.forEach((it,ii)=>{const e=X[it.ex]||{n:"Exercice supprimé",c:""};const base={k:b.k,ph,name:e.n,cue:e.c,p:e.p,d:Math.max(5,it.d|0),mid:e.mid};
-        if(e.legs){st.push({...base,side:"jambe droite"});st.push({k:"rest",ph,name:"Changez de jambe",cue:"",p:e.p,d:5,sw:true});st.push({...base,side:"jambe gauche"});}
+        if(e.legs){const c=e.sw==="côté",S=c?["côté droit","côté gauche"]:["jambe droite","jambe gauche"];st.push({...base,side:S[0]});st.push({k:"rest",ph,name:c?"Changez de côté":"Changez de jambe",cue:"",p:e.p,d:5,sw:true});st.push({...base,side:S[1]});}
         else st.push(base);
         if(ii<b.items.length-1&&b.rest>0)st.push({k:"rest",ph,name:"Récupération",cue:"",d:b.rest});});}});
   return st;}
@@ -180,14 +217,14 @@ function render(){
     M.innerHTML=h;}
   else if(view==="detail"){const s=cur,X=allEx();let h=`<div class="wrap"><div class="nav"><button class="link" data-a="home">‹ Séances</button></div><h1>${esc(s.name)}</h1><p class="sub">${esc(s.theme||"")} · ${fmt(durOf(s))}</p><button class="pri" data-a="run">Lancer la séance</button>`;
     s.blocks.forEach(b=>{h+=`<div class="blk k-${b.k}"><h3>${esc(b.name)}</h3><div class="m">${KL[b.k]}${b.rounds>1?` · ${b.rounds} tours`:""}${b.rest?` · récup ${b.rest} s`:""}${b.rounds>1&&b.roundRest?` · ${b.roundRest} s entre les tours`:""}</div><ul>`;
-      b.items.forEach(it=>{const e=X[it.ex];h+=`<li>${esc(e?e.n:"Exercice supprimé")} — ${it.d} s${e&&e.legs?" par jambe":""}</li>`;});h+=`</ul></div>`;});
+      b.items.forEach(it=>{const e=X[it.ex];h+=`<li>${esc(e?e.n:"Exercice supprimé")} — ${it.d} s${e&&e.legs?pj(e):""}</li>`;});h+=`</ul></div>`;});
     h+=`<div class="row" style="margin-top:18px">${s.ro?"":`<button data-a="edit">Modifier</button>`}<button data-a="dup">Dupliquer</button></div>`;
     if(!s.ro)h+=`<div class="row" style="margin-top:8px"><button class="del" data-a="delS">Supprimer la séance</button></div>`;
     else h+=`<p class="note">Séance modèle : dupliquez-la pour l'adapter.</p>`;
     M.innerHTML=h+`</div>`;}
   else if(view==="edit")renderEdit();
   else if(view==="exos"){const g=byTheme(Object.entries(allEx()).map(([id,e])=>({...e,id})),"t");let h=`<div class="wrap"><div class="nav"><button class="link" data-a="home">‹ Séances</button></div><h1>Exercices</h1><p class="sub">Les exercices marqués « modèle » sont fournis. Les vôtres sont modifiables.</p>`;
-    for(const t in g){h+=`<h2>${esc(t)}</h2>`;g[t].forEach(e=>{h+=`<button class="ses" ${e.ro?"":`data-a="editEx" data-id="${e.id}"`}>${thumb(e)}<div class="t"><b>${esc(e.n)}</b><span>${e.d} s${e.legs?" par jambe":""}${e.ro?" · modèle":""}</span></div></button>`;});}
+    for(const t in g){h+=`<h2>${esc(t)}</h2>`;g[t].forEach(e=>{h+=`<button class="ses" ${e.ro?"":`data-a="editEx" data-id="${e.id}"`}>${thumb(e)}<div class="t"><b>${esc(e.n)}</b><span>${e.d} s${e.legs?pj(e):""}${e.ro?" · modèle":""}</span></div></button>`;});}
     M.innerHTML=h+`<div class="row" style="margin-top:14px"><button data-a="newEx">Nouvel exercice</button></div></div>`;}
   else if(view==="exedit"){const e=exDraft,themes=[...new Set(Object.values(allEx()).map(x=>x.t).filter(Boolean))];
     const opts=Object.entries(BUILTIN).map(([id,b])=>`<option value="${id}" ${JSON.stringify(e.p)===JSON.stringify(b.p)?"selected":""}>${esc(b.n)}</option>`).join("");
@@ -196,7 +233,7 @@ function render(){
     <label class="f" for="ec">Consigne affichée pendant l'exercice</label><input id="ec" data-x="c" value="${esc(e.c)}" placeholder="Ex. Environ 10. Atterrir en douceur.">
     <label class="f" for="et">Thème</label><input id="et" data-x="t" list="thl" value="${esc(e.t)}"><datalist id="thl">${themes.map(t=>`<option value="${esc(t)}">`).join("")}</datalist>
     <label class="f" for="ed">Durée par défaut (secondes)</label><input id="ed" data-x="d" type="number" inputmode="numeric" min="5" value="${e.d}">
-    <label class="chk"><input type="checkbox" data-x="legs" ${e.legs?"checked":""}> Se fait jambe par jambe</label>
+    <label class="chk"><input type="checkbox" data-x="legs" ${e.legs?"checked":""}> Se fait d'un côté puis de l'autre</label>
     <label class="f" for="ef">Illustration</label><select id="ef" data-x="fig"><option value="">Aucune</option>${opts}</select>
     <p class="note">L'illustration reprend celle d'un exercice existant.</p>
     ${e.isNew?"":`<div class="row" style="margin-top:18px"><button class="del" data-a="delEx">Supprimer l'exercice</button></div>`}</div>`;}
@@ -220,13 +257,13 @@ function renderEdit(){const s=draft,X=allEx();let h=`<div class="wrap"><div clas
     <div><label class="f">Récup (s)</label><input type="number" inputmode="numeric" min="0" data-b="${bi}" data-f="rest" value="${b.rest}"></div>
     <div><label class="f">Entre tours (s)</label><input type="number" inputmode="numeric" min="0" data-b="${bi}" data-f="roundRest" value="${b.roundRest}"></div></div>
     <div style="margin-top:12px">`;
-    b.items.forEach((it,ii)=>{const e=X[it.ex];h+=`<div class="item"><div class="nm">${esc(e?e.n:"Exercice supprimé")}<small>secondes${e&&e.legs?" par jambe":""}</small></div>
+    b.items.forEach((it,ii)=>{const e=X[it.ex];h+=`<div class="item"><div class="nm">${esc(e?e.n:"Exercice supprimé")}<small>secondes${e&&e.legs?pj(e):""}</small></div>
       <input type="number" inputmode="numeric" min="5" data-b="${bi}" data-i="${ii}" data-f="d" value="${it.d}" aria-label="Durée en secondes">
       <button class="ib" data-a="upI" data-b="${bi}" data-i="${ii}" aria-label="Monter">↑</button><button class="ib del" data-a="delI" data-b="${bi}" data-i="${ii}" aria-label="Retirer">✕</button></div>`;});
     h+=`</div><div class="row" style="margin-top:8px"><button data-a="addI" data-b="${bi}">Ajouter un exercice</button></div></div>`;});
   h+=`<div class="row" style="margin-top:14px"><button data-a="addB">Ajouter un bloc</button></div></div>`;
   if(pickFor!==null){const g=byTheme(Object.entries(X).map(([id,e])=>({...e,id})),"t");h+=`<div class="sheet" data-a="closePick"><div data-a="noop"><div class="nav"><b>Choisir un exercice</b><button class="link" data-a="closePick">Fermer</button></div>`;
-    for(const t in g){h+=`<h2>${esc(t)}</h2>`;g[t].forEach(e=>h+=`<button class="pick" data-a="pick" data-id="${e.id}">${thumb(e)}<span><b>${esc(e.n)}</b><br><span class="note">${e.d} s${e.legs?" par jambe":""}</span></span></button>`);}
+    for(const t in g){h+=`<h2>${esc(t)}</h2>`;g[t].forEach(e=>h+=`<button class="pick" data-a="pick" data-id="${e.id}">${thumb(e)}<span><b>${esc(e.n)}</b><br><span class="note">${e.d} s${e.legs?pj(e):""}</span></span></button>`);}
     h+=`</div></div>`;}
   M.innerHTML=h;}
 
@@ -314,7 +351,7 @@ function show(){const st=steps[si];document.body.dataset.k=st.k;
   const nx=steps[si+1];$("next").innerHTML=nx?`Ensuite : <b>${esc(label(nx))}</b>`:"Dernière étape";
   $("prog").style.width=(steps.slice(0,si).reduce((a,b)=>a+b.d,0)/total*100)+"%";}
 function announce(){const st=steps[si];
-  if(st.sw)say("Changez de jambe.");
+  if(st.sw)say(st.name+".");
   else if(st.k==="rest"){const pv=nextWork(si+1);say((st.name==="Récupération"?"Récupération, "+st.d+" secondes. ":st.name+". ")+(pv?"Ensuite : "+label(pv)+".":""));}
   else say(label(st)+". "+st.d+" secondes.");}
 function draw(){const s=Math.max(0,Math.ceil(left/1000));$("clock").textContent=s>=60?Math.floor(s/60)+":"+String(s%60).padStart(2,"0"):s;
