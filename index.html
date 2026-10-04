@@ -68,8 +68,7 @@ textarea{min-height:120px;font-family:ui-monospace,Menlo,monospace;font-size:13p
 .cue{font-size:17px;line-height:1.35;color:var(--muted);margin:0;min-height:46px}
 .fig{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
 .fig svg{height:100%;max-height:200px;width:auto;max-width:100%}
-svg .b{opacity:0}
-svg.anim.flip .a{opacity:0}svg.anim.flip .b{opacity:1}
+
 .clock{font-weight:800;font-size:clamp(110px,36vw,180px);line-height:.9;text-align:center;color:var(--ph);font-variant-numeric:tabular-nums;letter-spacing:-4px;margin:4px 0 2px}
 .next{text-align:center;font-size:16px;color:var(--muted);min-height:22px}.next b{color:var(--ink)}
 .ctrl{display:flex;justify-content:center;align-items:center;gap:22px;margin-top:14px}
@@ -84,7 +83,7 @@ svg.anim.flip .a{opacity:0}svg.anim.flip .b{opacity:1}
 <main id="main"></main>
 
 <script>
-const APP_VERSION="5";
+const APP_VERSION="6";
 /* ---------- figures ---------- */
 const AH="70,30 66,44 68,58",AH2="70,30 74,44 76,58",chair="8,95 8,72 38,72 38,95",stp="56,95 56,84 120,84 120,95";
 const P={
@@ -127,7 +126,7 @@ SM2:{h:[116,78],l:["106,84 60,92","60,92 14,82","106,84 134,74"]},
 EN:{h:[106,77],l:["54,80 96,86","54,80 84,94 52,95","96,86 134,94"]},
 CO:{h:[106,56],l:["60,92 98,64","60,92 14,94","98,64 100,95"]}
 };
-function g(p,cls){let s=`<g class="${cls}" transform="translate(0,${10+(p.dy||0)})" fill="none" stroke-linecap="round" stroke-linejoin="round">`;
+function g(p,cls){let s=`<g class="${cls}" style="opacity:${cls==="b"?0:1}" transform="translate(0,${10+(p.dy||0)})" fill="none" stroke-linecap="round" stroke-linejoin="round">`;
 (p.pr||[]).forEach(l=>s+=`<polyline points="${l}" stroke="var(--muted)" stroke-width="2.5"/>`);
 p.l.forEach(l=>s+=`<polyline points="${l}" stroke="var(--ink)" stroke-width="4"/>`);
 return s+`<circle cx="${p.h[0]}" cy="${p.h[1]}" r="8" fill="var(--ink)" stroke="none"/></g>`;}
@@ -374,7 +373,8 @@ function finish(){say("Séance terminée. Bravo !");running=false;clearInterval(
   document.body.classList.remove("running");delete document.body.dataset.k;$("fill").classList.add("hidden");view="done";
   M.innerHTML=`<div class="wrap" style="padding-top:18vh"><h1>Séance terminée</h1><p class="sub">Bravo. Buvez un verre d'eau et gardez un jour de repos avant votre prochaine séance intense.</p><button class="pri" data-a="home">Retour aux séances</button></div>`;}
 if("speechSynthesis" in window)speechSynthesis.getVoices();
-setInterval(()=>document.querySelectorAll("svg.anim").forEach(v=>v.classList.toggle("flip")),1200);
+let flip=false;setInterval(()=>{flip=!flip;document.querySelectorAll("svg.anim").forEach(v=>{const a=v.querySelector("g.a"),b=v.querySelector("g.b");
+  if(a&&b){a.style.opacity=flip?"0":"1";b.style.opacity=flip?"1":"0";}});},1200);
 render();
 </script>
 </body>
