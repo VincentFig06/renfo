@@ -42,6 +42,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .blk{border-left:4px solid var(--ph);padding-left:12px;margin:14px 0}
 .blk h3{margin:0 0 4px;font-size:16px}.blk .m{color:var(--muted);font-size:13px;margin-bottom:6px}
 .blk li{font-size:15px;padding:3px 0}.blk ul{margin:0;padding-left:18px}
+.tours{display:flex;align-items:center;gap:10px;margin:4px 0 10px;font-size:15px}.tours b{min-width:26px;text-align:center;font-size:20px}.tours .ib{width:44px;height:44px;font-size:22px}.ib:disabled{opacity:.35}
 .k-warm{--ph:var(--warm)}.k-work{--ph:var(--work)}.k-calm{--ph:var(--calm)}
 label.f{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
 input,select,textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;width:100%}
@@ -202,6 +203,7 @@ const fmt=sec=>"≈ "+Math.max(1,Math.round(sec/60))+" min";
 
 /* ---------- navigation ---------- */
 const M=document.getElementById("main");
+let ov={};const eff=s=>{const c=clone(s);c.blocks.forEach((b,i)=>{if(ov[i])b.rounds=ov[i];});return c;};
 let view="home",cur=null,draft=null,exDraft=null,pickFor=null;
 function go(v){view=v;render();window.scrollTo(0,0);}
 
@@ -215,8 +217,8 @@ function render(){
       h+=`<button class="ses" data-a="open" data-id="${s.id}">${thumb(first)}<div class="t"><b>${esc(s.name)}</b><span>${fmt(durOf(s))} · ${s.blocks.length} bloc${s.blocks.length>1?"s":""}${s.ro?" · modèle":""}</span></div></button>`;});}
     h+=`<div class="row" style="margin-top:14px"><button data-a="newS">Nouvelle séance</button></div><div class="row" style="margin-top:6px"><button class="link" data-a="backup">Sauvegarder ou restaurer mes données</button></div></div>`;
     M.innerHTML=h;}
-  else if(view==="detail"){const s=cur,X=allEx();let h=`<div class="wrap"><div class="nav"><button class="link" data-a="home">‹ Séances</button></div><h1>${esc(s.name)}</h1><p class="sub">${esc(s.theme||"")} · ${fmt(durOf(s))}</p><button class="pri" data-a="run">Lancer la séance</button>`;
-    s.blocks.forEach(b=>{h+=`<div class="blk k-${b.k}"><h3>${esc(b.name)}</h3><div class="m">${KL[b.k]}${b.rounds>1?` · ${b.rounds} tours`:""}${b.rest?` · récup ${b.rest} s`:""}${b.rounds>1&&b.roundRest?` · ${b.roundRest} s entre les tours`:""}</div><ul>`;
+  else if(view==="detail"){const s=eff(cur),X=allEx();let h=`<div class="wrap"><div class="nav"><button class="link" data-a="home">‹ Séances</button></div><h1>${esc(s.name)}</h1><p class="sub">${esc(s.theme||"")} · ${fmt(durOf(s))}</p><button class="pri" data-a="run">Lancer la séance</button>`;
+    s.blocks.forEach((b,bi)=>{const def=cur.blocks[bi].rounds,adj=b.k==="work";h+=`<div class="blk k-${b.k}"><h3>${esc(b.name)}</h3><div class="m">${KL[b.k]}${!adj&&b.rounds>1?` · ${b.rounds} tours`:""}${b.rest?` · récup ${b.rest} s`:""}${b.rounds>1&&b.roundRest?` · ${b.roundRest} s entre les tours`:""}</div>${adj?`<div class="tours"><span>Tours</span><button class="ib" data-a="rDown" data-b="${bi}" aria-label="Un tour de moins" ${b.rounds<=1?"disabled":""}>−</button><b aria-live="polite">${b.rounds}</b><button class="ib" data-a="rUp" data-b="${bi}" aria-label="Un tour de plus" ${b.rounds>=10?"disabled":""}>+</button><span class="note">${b.rounds===def?"par défaut":`par défaut : ${def}`}</span></div>`:""}<ul>`;
       b.items.forEach(it=>{const e=X[it.ex];h+=`<li>${esc(e?e.n:"Exercice supprimé")} — ${it.d} s${e&&e.legs?pj(e):""}</li>`;});h+=`</ul></div>`;});
     h+=`<div class="row" style="margin-top:18px">${s.ro?"":`<button data-a="edit">Modifier</button>`}<button data-a="dup">Dupliquer</button></div>`;
     if(!s.ro)h+=`<div class="row" style="margin-top:8px"><button class="del" data-a="delS">Supprimer la séance</button></div>`;
@@ -270,7 +272,9 @@ function renderEdit(){const s=draft,X=allEx();let h=`<div class="wrap"><div clas
 /* ---------- actions ---------- */
 const A={
 home:()=>go("home"),exos:()=>go("exos"),backup:()=>go("backup"),
-open:d=>{cur=allSes().find(s=>s.id===d.id);go("detail");},
+open:d=>{cur=allSes().find(s=>s.id===d.id);ov={};go("detail");},
+rUp:d=>{const b=+d.b,n=(ov[b]||cur.blocks[b].rounds);ov[b]=Math.min(10,n+1);render();},
+rDown:d=>{const b=+d.b,n=(ov[b]||cur.blocks[b].rounds);ov[b]=Math.max(1,n-1);render();},
 newS:()=>{draft={id:uid(),isNew:true,name:"",theme:TH,blocks:[{name:"Circuit",k:"work",rounds:1,rest:20,roundRest:60,items:[]}]};go("edit");},
 edit:()=>{draft=clone(cur);go("edit");},
 dup:()=>{draft={...clone(cur),id:uid(),isNew:true,ro:false,name:cur.name+" (copie)"};delete draft.ro;go("edit");},
@@ -278,7 +282,7 @@ delS:()=>{if(!confirm("Supprimer cette séance ?"))return;mySes=mySes.filter(s=>
 cancelEdit:()=>{pickFor=null;go(draft.isNew?"home":"detail");},
 saveS:()=>{const s=draft;if(!s.name.trim()){alert("Donnez un nom à la séance.");return;}
   if(!s.blocks.some(b=>b.items.length)){alert("Ajoutez au moins un exercice.");return;}
-  delete s.isNew;const i=mySes.findIndex(x=>x.id===s.id);if(i>=0)mySes[i]=s;else mySes.push(s);store(KS,mySes);cur=s;go("detail");},
+  delete s.isNew;const i=mySes.findIndex(x=>x.id===s.id);if(i>=0)mySes[i]=s;else mySes.push(s);store(KS,mySes);cur=s;ov={};go("detail");},
 addB:()=>{draft.blocks.push({name:"Nouveau bloc",k:"work",rounds:1,rest:20,roundRest:60,items:[]});renderEdit();},
 delB:d=>{if(confirm("Supprimer ce bloc ?")){draft.blocks.splice(+d.b,1);renderEdit();}},
 upB:d=>{const i=+d.b;if(i>0){const B=draft.blocks;[B[i-1],B[i]]=[B[i],B[i-1]];renderEdit();}},
@@ -299,7 +303,7 @@ import:()=>{const m=document.getElementById("impMsg");try{const o=JSON.parse(doc
   const merge=(arr,add)=>{add.forEach(x=>{const i=arr.findIndex(y=>y.id===x.id);if(i>=0)arr[i]=x;else arr.push(x);});};
   merge(myEx,o.exercises||[]);merge(mySes,o.sessions||[]);store(KE,myEx);store(KS,mySes);m.textContent="Données restaurées.";}
   catch(e){m.textContent="Texte non reconnu : collez le texte complet copié depuis cet écran.";}},
-run:()=>startRun(cur),noop:()=>{}
+run:()=>startRun(eff(cur)),noop:()=>{}
 };
 M.addEventListener("click",e=>{const t=e.target.closest("[data-a]");if(t&&A[t.dataset.a])A[t.dataset.a](t.dataset);});
 function onField(e){const t=e.target;
