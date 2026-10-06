@@ -84,7 +84,7 @@ textarea{min-height:120px;font-family:ui-monospace,Menlo,monospace;font-size:13p
 <main id="main"></main>
 
 <script>
-const APP_VERSION="10";
+const APP_VERSION="11";
 /* ---------- figures ---------- */
 const AH="70,30 66,44 68,58",AH2="70,30 74,44 76,58",chair="8,95 8,72 38,72 38,95",stp="56,95 56,84 120,84 120,95";
 const P={
@@ -137,6 +137,9 @@ DP2:{pr:["8,95 8,72 38,72 38,95"],h:[46,50],l:["44,62 50,88","50,88 80,80 84,95 
 LL1:{h:[70,14],l:["70,24 70,56","70,56 60,76 54,95","70,56 80,76 86,95","70,32 62,42 70,44","70,32 78,42 70,44"]},
 LL2:{h:[80,24],l:["80,34 82,66","82,66 100,74 100,95","82,66 40,95","80,40 74,50 82,52","80,40 88,50 82,52"]},
 GB1:{h:[14,87],l:["24,90 64,92","64,92 84,72 90,95 98,95","64,92 86,74 92,95 100,95","28,92 48,95"]},
+SU1:{h:[70,14],l:["70,24 70,56","70,56 58,76 50,95","70,56 82,76 90,95","70,32 62,42 70,46","70,32 78,42 70,46"]},
+SU2:{h:[70,32],l:["70,42 70,70","70,70 44,72 48,95","70,70 96,72 92,95","70,48 62,58 70,62","70,48 78,58 70,62"]},
+DK2:{h:[110,52],l:["100,58 50,58","100,58 100,95","50,58 50,95 20,95","50,58 28,50 26,26"]},
 GB2:{h:[14,87],l:["24,90 62,72","62,72 84,68 90,95 98,95","62,72 86,70 92,95 100,95","28,92 48,95"]}
 };
 function g(p,cls){let s=`<g class="${cls}" style="opacity:${cls==="b"?0:1}" transform="translate(0,${10+(p.dy||0)})" fill="none" stroke-linecap="round" stroke-linejoin="round">`;
@@ -179,6 +182,8 @@ pompes:{n:"Pompes",c:"Environ 8 à 10. Sur les genoux si besoin, corps gainé, p
 dips:{n:"Dips sur une chaise",c:"Environ 10. Mains sur le bord de la chaise, plier les coudes vers l'arrière.",p:["DP1","DP2"],d:30,t:"Tout le corps"},
 fentelat:{n:"Fentes latérales",c:"Pas sur le côté, fléchir cette jambe, l'autre reste tendue. Alterner les côtés.",p:["LL1","LL2"],d:40,t:"Tout le corps"},
 pont2:{n:"Pont fessier",c:"Environ 15. Sur le dos, pieds au sol, monter le bassin et serrer les fessiers.",p:["GB1","GB2"],d:40,t:"Tout le corps"},
+sumo:{n:"Squat sumo",c:"Environ 15. Pieds larges, pointes vers l'extérieur, descendre en ouvrant les genoux.",p:["SU1","SU2"],d:40,t:"Cuisses, abdos, fessiers"},
+donkey:{n:"Donkey kick",c:"Environ 15. À quatre pattes, genou plié, pousser le talon vers le plafond en serrant le fessier.",p:["BD1","DK2"],d:30,legs:true,t:"Cuisses, abdos, fessiers"},
 cobra:{n:"Étirement cobra",c:"À plat ventre, pousser sur les mains, bassin au sol, regard devant.",p:["CO"],d:30,t:"Abdos et gainage"}
 };
 Object.values(BUILTIN).forEach(e=>{e.t=e.t||TH;e.ro=true;});
@@ -194,6 +199,10 @@ const PRESETS=[{id:"preset-jambes",ro:true,name:"Renfo cuisses et mollets",theme
 {id:"preset-corps",ro:true,name:"Renfo tout le corps",theme:"Tout le corps",blocks:[
 {name:"Échauffement",k:"warm",rounds:1,rest:0,roundRest:0,items:[{ex:"jacks",d:40},{ex:"moulinets",d:40},{ex:"doux",d:40}]},
 {name:"Circuit",k:"work",rounds:2,rest:20,roundRest:60,items:[{ex:"squat",d:40},{ex:"pompes",d:30},{ex:"fentelat",d:40},{ex:"dips",d:30},{ex:"pont2",d:40},{ex:"superman",d:30},{ex:"planche",d:30},{ex:"deadbug",d:40}]},
+{name:"Retour au calme",k:"calm",rounds:1,rest:0,roundRest:0,items:[{ex:"enfant",d:40},{ex:"quad",d:30}]}]},
+{id:"preset-caf",ro:true,name:"Cuisses, abdos, fessiers",theme:"Cuisses, abdos, fessiers",blocks:[
+{name:"Échauffement",k:"warm",rounds:1,rest:0,roundRest:0,items:[{ex:"jacks",d:40},{ex:"genoux",d:40},{ex:"doux",d:40}]},
+{name:"Circuit",k:"work",rounds:2,rest:20,roundRest:60,items:[{ex:"sumo",d:40},{ex:"donkey",d:30},{ex:"crunch",d:40},{ex:"fente",d:30},{ex:"pont2",d:40},{ex:"velo",d:40},{ex:"chaise",d:40},{ex:"planche",d:30}]},
 {name:"Retour au calme",k:"calm",rounds:1,rest:0,roundRest:0,items:[{ex:"enfant",d:40},{ex:"quad",d:30}]}]}];
 
 const KS="renfo.v1.sessions",KE="renfo.v1.exercises";
